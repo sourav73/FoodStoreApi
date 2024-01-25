@@ -1,0 +1,6 @@
+@FoodStoreApi_HostAddress = http://localhost:5007
+
+GET {{FoodStoreApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

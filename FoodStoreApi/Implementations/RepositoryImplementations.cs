@@ -1,0 +1,13 @@
+﻿using Repository.Repository.BaseRepository;
+using Repository.Repository.Implementation;
+
+namespace FoodStoreApi.Implementations
+{
+    public class RepositoryImplementations
+    {
+        public static void ImplementRepositories(IServiceCollection services)
+        {
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+        }
+    }
+}
