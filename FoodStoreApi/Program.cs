@@ -1,5 +1,6 @@
 using FoodStoreApi.Implementations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Repository;
 
 
@@ -16,6 +17,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DbEntity>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn-string")));
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Food Store api v1", Version = "v1", Description = "API Version 1.0" });
+    c.EnableAnnotations();
+});
+
+// Cors
+string[] corsOrigins = builder.Configuration.GetSection("CorsOrigins:AllowedOrigins").Get<string[]>() ?? [];
+
+builder.Services.AddCors();
+builder.Services.AddCors(options => options.AddPolicy(
+                    "FoodStorePolicy",
+                    builder => builder
+                        .WithOrigins(corsOrigins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                ));
 
 var app = builder.Build();
 
