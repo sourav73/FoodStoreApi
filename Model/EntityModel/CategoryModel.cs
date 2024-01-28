@@ -7,7 +7,7 @@ namespace Model.EntityModel
     public class CategoryModel : BaseEntity<int>
     {
         [Required(ErrorMessage = "Name is required")]
-        public string? CategoryName { get; set; }
+        public string CategoryName { get; set; }
         public int ParentId { get; set; }
     }
 }

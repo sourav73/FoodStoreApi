@@ -23,11 +23,13 @@ namespace Repository.Repository.Implementation
         }
         public void Create(T entity)
         {
+            UpdateEntityModificationStatus(entity, 1);
             Db.Set<T>().Add(entity);
         }
 
         public void Create(IEnumerable<T> entities)
         {
+            entities.ToList().ForEach(e => UpdateEntityModificationStatus(e, 1));
             Db.Set<T>().AddRange(entities);
         }
 
@@ -47,7 +49,7 @@ namespace Repository.Repository.Implementation
         public void Delete(T entity)
         {
             UpdateEntityModificationStatus(entity, 2);
-            Db.Entry(entity).State = EntityState.Modified;
+            //Db.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(IEnumerable<T> entities)
@@ -55,7 +57,7 @@ namespace Repository.Repository.Implementation
             entities.ToList().ForEach(entity => 
             {
                 UpdateEntityModificationStatus(entity, 2);
-                Db.Entry(entity).State = EntityState.Modified;
+                //Db.Entry(entity).State = EntityState.Modified;
             });
         }
 
@@ -63,7 +65,7 @@ namespace Repository.Repository.Implementation
         {
             var entity = Db.Set<T>().Find(id) ?? throw new Exception("Entity Not Found");
             UpdateEntityModificationStatus(entity, 2);
-            Db.Entry(entity).State = EntityState.Modified;
+            //Db.Entry(entity).State = EntityState.Modified;
         }
 
         public void HardDelete(T entity)
@@ -85,7 +87,7 @@ namespace Repository.Repository.Implementation
             entities.ForEach(entity =>
             {
                 UpdateEntityModificationStatus(entity, 2);
-                Db.Entry(entity).State = EntityState.Modified;
+                //Db.Entry(entity).State = EntityState.Modified;
             });
         }
 
