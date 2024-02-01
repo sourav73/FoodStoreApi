@@ -5,6 +5,7 @@ using Repository;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var corsPolicy = "foodStorePolicy";
 
 // Add services to the container.
 
@@ -27,15 +28,17 @@ builder.Services.AddSwaggerGen(c =>
 // Cors
 string[] corsOrigins = builder.Configuration.GetSection("CorsOrigins:AllowedOrigins").Get<string[]>() ?? [];
 
-builder.Services.AddCors();
-builder.Services.AddCors(options => options.AddPolicy(
-                    "FoodStorePolicy",
-                    builder => builder
-                        .WithOrigins(corsOrigins)
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials()
-                ));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsPolicy,
+                      policy =>
+                      {
+                          policy.WithOrigins(corsOrigins)
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials();
+                      });
+});
 
 var app = builder.Build();
 
@@ -47,6 +50,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(corsPolicy);
 
 app.UseAuthorization();
 

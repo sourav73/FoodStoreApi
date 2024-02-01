@@ -4,12 +4,14 @@
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
-        public List<SubCategoriesOutputDto> SubCategories { get; set; } = [];
+        public int ParentId { get; set; }
+        public List<CategoryOutputDto> SubCategories { get; set; } = [];
     }
 
-    public class SubCategoriesOutputDto : CategoryInputDto
+    public class CategoryDDLOutputDto
     {
         public int Id { get; set; }
-        public List<SubCategoriesOutputDto> SubCategories { get; set; } = [];
+        public string CategoryName { get; set; }
+        public int Level { get; set; }
     }
 }
