@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Model.DTOs.Category;
 using Model.DTOs.Response;
-using Model.EntityModel;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace FoodStoreApi.Controllers.CategoryController
@@ -13,7 +12,7 @@ namespace FoodStoreApi.Controllers.CategoryController
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryManager _categoryManager;
-        public CategoryController(ICategoryManager categoryManager) 
+        public CategoryController(ICategoryManager categoryManager)
         {
             _categoryManager = categoryManager;
         }
@@ -26,7 +25,7 @@ namespace FoodStoreApi.Controllers.CategoryController
 
             return new ListResponse<CategoryOutputDto>() { Data = categories, Message = "Data found" };
         }
-        [HttpGet("dropdown")]
+        [HttpGet("all")]
         [SwaggerOperation(Summary = "Get all categories for dropdown")]
         public async Task<ListResponse<CategoryDDLOutputDto>> GetDropdownCategories()
         {
