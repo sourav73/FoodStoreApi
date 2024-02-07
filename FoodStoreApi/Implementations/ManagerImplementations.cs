@@ -8,6 +8,7 @@ namespace FoodStoreApi.Implementations
         public static void ImplementManagers(IServiceCollection services)
         {
             services.AddScoped<ICategoryManager, CategoryManager>();
+            services.AddScoped<IProductManager, ProductManager>();
         }
     }
 }

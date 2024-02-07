@@ -4,7 +4,7 @@ using Model.DTOs.Category;
 using Model.DTOs.Response;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace FoodStoreApi.Controllers.CategoryController
+namespace FoodStoreApi.Controllers.Category
 {
     [Route("api/categories")]
     [ApiController]

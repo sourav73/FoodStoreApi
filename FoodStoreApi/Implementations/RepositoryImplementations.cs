@@ -8,6 +8,7 @@ namespace FoodStoreApi.Implementations
         public static void ImplementRepositories(IServiceCollection services)
         {
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }
