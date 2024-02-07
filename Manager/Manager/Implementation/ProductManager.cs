@@ -1,6 +1,5 @@
 ﻿using Manager.Manager.BaseManager;
 using Microsoft.EntityFrameworkCore;
-using Model.DTOs.Category;
 using Model.DTOs.Product;
 using Model.EntityModel;
 using Model.Enum;
@@ -45,6 +44,7 @@ namespace Manager.Manager.Implementation
                     p.RStatus == (int)EnumRStatus.Active
                 ).Select(p => new ProductInputOutputDto
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
                     Price = p.Price,
@@ -54,6 +54,28 @@ namespace Manager.Manager.Implementation
                     Weight = p.Weight
                 }).ToListAsync();
             return products;
+        }
+        public async Task<ProductInputOutputDto> GetProductById(int id)
+        {
+            ProductInputOutputDto product = await _productRepository.FindByCondition(p =>
+                    p.Id == id &&
+                    p.RStatus == (int)EnumRStatus.Active
+                ).Select(p => new ProductInputOutputDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Price = p.Price,
+                    FkCategoryId = p.FkCategoryId,
+                    ImagePath = p.ImagePath,
+                    Discount = p.Discount,
+                    Weight = p.Weight
+                }).FirstOrDefaultAsync();
+            if (product == null)
+            {
+                throw new BadRequestException("Product not found");
+            }
+            return product;
         }
 
         public async Task<bool> UpdateProduct(int id, ProductInputOutputDto product)

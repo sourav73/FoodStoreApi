@@ -1,9 +1,7 @@
 ﻿using Manager.Manager.BaseManager;
 using Microsoft.AspNetCore.Mvc;
-using Model.DTOs.Category;
 using Model.DTOs.Product;
 using Model.DTOs.Response;
-using Model.EntityModel;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace FoodStoreApi.Controllers.Product
@@ -19,13 +17,22 @@ namespace FoodStoreApi.Controllers.Product
             _productManager = productManager;
         }
 
-        [HttpGet("/products")]
+        [HttpGet("/api/products")]
         [SwaggerOperation(Summary = "Get all products")]
         public async Task<ListResponse<ProductInputOutputDto>> GetProducts()
         {
             var products = await _productManager.GetProducts();
 
             return new ListResponse<ProductInputOutputDto>() { Data = products, Message = "Data found" };
+        }
+
+        [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get specific product by its id")]
+        public async Task<ObjectResponse<ProductInputOutputDto>> GetProduct(int id)
+        {
+            var product = await _productManager.GetProductById(id);
+
+            return new ObjectResponse<ProductInputOutputDto>() { Data = product, Message = "Data found" };
         }
 
         [HttpPost]
