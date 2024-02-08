@@ -94,5 +94,20 @@ namespace Manager.Manager.Implementation
             _productRepository.Update(existingProduct);
             return await _productRepository.SaveAsync();
         }
+
+        public async Task<List<ProductCommonOutputDto>> GetProductsByCategory(int categoryId)
+        {
+            List<ProductModel> products = await _productRepository.FindByCondition(p =>
+                p.FkCategoryId == categoryId && p.RStatus == (int)EnumRStatus.Active).AsNoTracking().ToListAsync();
+
+            return products.Select(p => new ProductCommonOutputDto
+            {
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Discount = p.Discount,
+                Weight = p.Weight
+            }).ToList();
+        }
     }
 }

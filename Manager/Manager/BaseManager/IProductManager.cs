@@ -5,9 +5,10 @@ namespace Manager.Manager.BaseManager
     public interface IProductManager
     {
         Task<List<ProductInputOutputDto>> GetProducts();
-        Task<ProductInputOutputDto> GetProductById(int id);
+        Task<ProductInputOutputDto> GetProductById(int productId);
+        Task<List<ProductCommonOutputDto>> GetProductsByCategory(int categoryId);
         Task<bool> AddProduct(ProductInputOutputDto product);
-        Task<bool> DeleteProduct(int id);
-        Task<bool> UpdateProduct(int id, ProductInputOutputDto product);
+        Task<bool> DeleteProduct(int productId);
+        Task<bool> UpdateProduct(int productId, ProductInputOutputDto product);
     }
 }
