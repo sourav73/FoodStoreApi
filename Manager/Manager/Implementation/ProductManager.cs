@@ -57,7 +57,7 @@ namespace Manager.Manager.Implementation
         }
         public async Task<ProductInputOutputDto> GetProductById(int id)
         {
-            ProductInputOutputDto product = await _productRepository.FindByCondition(p =>
+            ProductInputOutputDto? product = await _productRepository.FindByCondition(p =>
                     p.Id == id &&
                     p.RStatus == (int)EnumRStatus.Active
                 ).Select(p => new ProductInputOutputDto
