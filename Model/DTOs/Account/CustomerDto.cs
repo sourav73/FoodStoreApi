@@ -1,15 +1,20 @@
-﻿namespace Model.DTOs.Account
+﻿
+namespace Model.DTOs.Account
 {
-    public class AccountInputDto
+    public class CustomerDto
+    {
+    }
+
+    public class CustomerInputDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; } = string.Empty;
         public string Phone { get; set; }
         public string Address { get; set; }
-        public int? FkRoleId { get; set; }
     }
 
-    public class AccountOutputDto : AccountInputDto
+    public class CustomerOutputDto : CustomerInputDto
     {
         public int Id { get; set; }
     }

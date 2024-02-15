@@ -95,13 +95,15 @@ namespace Manager.Manager.Implementation
             return await _productRepository.SaveAsync();
         }
 
-        public async Task<List<ProductCommonOutputDto>> GetProductsByCategory(int categoryId)
+        public async Task<List<ProductInputOutputDto>> GetProductsByCategory(int categoryId)
         {
             List<ProductModel> products = await _productRepository.FindByCondition(p =>
                 p.FkCategoryId == categoryId && p.RStatus == (int)EnumRStatus.Active).AsNoTracking().ToListAsync();
 
-            return products.Select(p => new ProductCommonOutputDto
+            return products.Select(p => new ProductInputOutputDto
             {
+                Id = p.Id,
+                ImagePath = p.ImagePath,
                 Name = p.Name,
                 Description = p.Description,
                 Price = p.Price,

@@ -10,6 +10,7 @@ namespace FoodStoreApi.Implementations
             services.AddScoped<ICategoryManager, CategoryManager>();
             services.AddScoped<IProductManager, ProductManager>();
             services.AddScoped<IAccountManager, AccountManager>();
+            services.AddScoped<ICustomerManager, CustomerManager>();
         }
     }
 }

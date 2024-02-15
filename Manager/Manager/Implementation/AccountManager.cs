@@ -25,7 +25,8 @@ namespace Manager.Manager.Implementation
                 Name = account.Name,
                 Email = account.Email,
                 Phone = account.Phone,
-                Address = account.Address
+                Address = account.Address,
+                FkRoleId = account.FkRoleId
             };
             _accountRepository.Create(user);
             return await _accountRepository.SaveAsync();
@@ -41,7 +42,8 @@ namespace Manager.Manager.Implementation
                     Name = a.Name,
                     Email = a.Email,
                     Phone = a.Phone,
-                    Address = a.Address
+                    Address = a.Address,
+                    FkRoleId = a.FkRoleId
                 }).ToListAsync();
             return accounts;
         }
@@ -58,6 +60,7 @@ namespace Manager.Manager.Implementation
             user.Email = account.Email;
             user.Phone = account.Phone;
             user.Address = account.Address;
+            user.FkRoleId = account.FkRoleId;
             return await _accountRepository.SaveAsync();
         }
 

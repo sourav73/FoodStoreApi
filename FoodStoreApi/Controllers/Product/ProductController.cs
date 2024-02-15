@@ -37,11 +37,11 @@ namespace FoodStoreApi.Controllers.Product
 
         [HttpGet("category/{categoryId}")]
         [SwaggerOperation(Summary = "Get all products for a category")]
-        public async Task<ListResponse<ProductCommonOutputDto>> GetProductsByCategory(int categoryId)
+        public async Task<ListResponse<ProductInputOutputDto>> GetProductsByCategory(int categoryId)
         {
             var product = await _productManager.GetProductsByCategory(categoryId);
 
-            return new ListResponse<ProductCommonOutputDto>() { Data = product, Message = "Data found" };
+            return new ListResponse<ProductInputOutputDto>() { Data = product, Message = "Data found" };
         }
 
         [HttpPost]

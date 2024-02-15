@@ -11,6 +11,7 @@ namespace FoodStoreApi.Implementations
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
     }
 }

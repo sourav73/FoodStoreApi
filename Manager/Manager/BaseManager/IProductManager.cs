@@ -6,7 +6,7 @@ namespace Manager.Manager.BaseManager
     {
         Task<List<ProductInputOutputDto>> GetProducts();
         Task<ProductInputOutputDto> GetProductById(int productId);
-        Task<List<ProductCommonOutputDto>> GetProductsByCategory(int categoryId);
+        Task<List<ProductInputOutputDto>> GetProductsByCategory(int categoryId);
         Task<bool> AddProduct(ProductInputOutputDto product);
         Task<bool> DeleteProduct(int productId);
         Task<bool> UpdateProduct(int productId, ProductInputOutputDto product);

@@ -13,5 +13,6 @@ namespace Repository
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<RoleModel> Roles { get; set; }
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<CustomerModel> Customers { get; set; }
     }
 }
