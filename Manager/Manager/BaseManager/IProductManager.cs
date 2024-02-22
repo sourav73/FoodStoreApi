@@ -10,5 +10,6 @@ namespace Manager.Manager.BaseManager
         Task<bool> AddProduct(ProductInputOutputDto product);
         Task<bool> DeleteProduct(int productId);
         Task<bool> UpdateProduct(int productId, ProductInputOutputDto product);
+        Task<List<CategoryWiseProductOutputDto>> GetCategoryWiseProducts();
     }
 }

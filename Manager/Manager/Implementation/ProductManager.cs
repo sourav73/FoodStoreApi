@@ -111,5 +111,11 @@ namespace Manager.Manager.Implementation
                 Weight = p.Weight
             }).ToList();
         }
+
+        public async Task<List<CategoryWiseProductOutputDto>> GetCategoryWiseProducts()
+        {
+            var products = await _productRepository.GetCategoryWiseProducts();
+            return products;
+        }
     }
 }

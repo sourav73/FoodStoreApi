@@ -15,4 +15,10 @@
         public decimal? Weight { get; set; }
         public decimal? Discount { get; set; }
     }
+
+    public class CategoryWiseProductOutputDto
+    {
+        public string CategoryName { get; set; }
+        public List<ProductInputOutputDto> Products { get; set; }
+    }
 }
