@@ -66,5 +66,14 @@ namespace FoodStoreApi.Controllers.Product
             bool isDeleted = await _productManager.DeleteProduct(id);
             return new ObjectResponse<bool>() { Data = isDeleted, Message = isDeleted ? "Product deleted" : "Product delete failed!" };
         }
+
+        [HttpGet("category-wise-products")]
+        [SwaggerOperation(Summary = "Get all products for all category")]
+        public async Task<ListResponse<CategoryWiseProductOutputDto>> GetCategoryWiseProducts()
+        {
+            var product = await _productManager.GetCategoryWiseProducts();
+
+            return new ListResponse<CategoryWiseProductOutputDto>() { Data = product, Message = "Data found" };
+        }
     }
 }
