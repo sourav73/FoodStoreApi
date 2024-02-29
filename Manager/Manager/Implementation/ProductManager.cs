@@ -11,9 +11,11 @@ namespace Manager.Manager.Implementation
     public class ProductManager : IProductManager
     {
         private readonly IProductRepository _productRepository;
-        public ProductManager(IProductRepository productRepository)
+        private readonly ICategoryRepository _categoryRepository;
+        public ProductManager(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<bool> AddProduct(ProductInputOutputDto product)
@@ -103,6 +105,7 @@ namespace Manager.Manager.Implementation
             return products.Select(p => new ProductInputOutputDto
             {
                 Id = p.Id,
+                FkCategoryId = p.FkCategoryId,
                 ImagePath = p.ImagePath,
                 Name = p.Name,
                 Description = p.Description,
@@ -110,6 +113,33 @@ namespace Manager.Manager.Implementation
                 Discount = p.Discount,
                 Weight = p.Weight
             }).ToList();
+        }
+
+        public async Task<CategoryWiseProductOutputDto> GetGroupedProductsByCategory(int categoryId)
+        {
+            string categoryName = await _categoryRepository.FindByCondition(c =>
+                c.Id == categoryId && c.RStatus == (int)EnumRStatus.Active)
+                .Select(c => c.CategoryName)
+                .FirstOrDefaultAsync() ?? "";
+            List<ProductModel> products = await _productRepository.FindByCondition(p =>
+                p.FkCategoryId == categoryId && p.RStatus == (int)EnumRStatus.Active).AsNoTracking().ToListAsync();
+
+            CategoryWiseProductOutputDto categoryWiseProducts = new()
+            {
+                CategoryName = categoryName,
+                Products = products.Select(p => new ProductInputOutputDto
+                {
+                    Id = p.Id,
+                    FkCategoryId = p.FkCategoryId,
+                    ImagePath = p.ImagePath,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Discount = p.Discount,
+                    Weight = p.Weight
+                }).ToList()
+            };
+            return categoryWiseProducts;
         }
 
         public async Task<List<CategoryWiseProductOutputDto>> GetCategoryWiseProducts()
