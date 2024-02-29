@@ -44,6 +44,15 @@ namespace FoodStoreApi.Controllers.Product
             return new ListResponse<ProductInputOutputDto>() { Data = product, Message = "Data found" };
         }
 
+        [HttpGet("category-items/{categoryId}")]
+        [SwaggerOperation(Summary = "Get all products for a category with category name")]
+        public async Task<ObjectResponse<CategoryWiseProductOutputDto>> GetProductsByCategoryWithName(int categoryId)
+        {
+            var product = await _productManager.GetGroupedProductsByCategory(categoryId);
+
+            return new ObjectResponse<CategoryWiseProductOutputDto>() { Data = product, Message = "Data found" };
+        }
+
         [HttpPost]
         [SwaggerOperation(Summary = "Add new product")]
         public async Task<ObjectResponse<bool>> AddCategory(ProductInputOutputDto product)
